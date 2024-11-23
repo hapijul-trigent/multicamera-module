@@ -121,6 +121,6 @@ for idx, cam_index in enumerate(camera_indices):
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
         # Convert to Image format for Streamlit
-        st.image(gray_frame, caption=f"Processed Camera {idx + 1}", use_column_width=True, channels="GRAY")
+        st.image(gray_frame, caption=f"Processed Camera {idx + 1}", use_container_width=True, channels="GRAY")
     else:
         st.warning(f"Camera {idx + 1} is not available or could not capture a frame.")
