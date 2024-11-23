@@ -75,7 +75,7 @@ import streamlit as st
 import cv2
 import numpy as np
 
-st.title("Webcam Capture with OpenCV")
+st.title("Real-Time Capture")
 
 # Use Streamlit's built-in camera input
 # 3 columns
@@ -83,6 +83,7 @@ col1, col2, col3 = st.columns(3)
 image_data = st.camera_input("Right")
 image_data2 =  st.camera_input("Left")
 image_data3 =  st.camera_input("Front")
+
 if image_data and image_data2 and image_data3:
     # Convert the image to a numpy array
     image = np.array(bytearray(image_data.read()), dtype=np.uint8)
