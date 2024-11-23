@@ -83,6 +83,7 @@ col1, col2, col3 = st.columns(3)
 image_data = st.camera_input("Right")
 image_data2 =  st.camera_input("Left")
 image_data3 =  st.camera_input("Front")
+image_data4 =  st.camera_input("Back")
 
 if image_data and image_data2 and image_data3:
     # Convert the image to a numpy array
@@ -93,11 +94,15 @@ if image_data and image_data2 and image_data3:
     image3 = np.array(bytearray(image_data3.read()), dtype=np.uint8)
     image3 = cv2.imdecode(image3, 1)
 
+    image4 = np.array(bytearray(image_data4.read()), dtype=np.uint8)
+    image4 = cv2.imdecode(image4, 1)
+
 
     # Display the processed image
-    st.image(image_data, caption="Front", use_container_width=True)
-    st.image(image_data2, caption="Right", use_container_width=True)
-    st.image(image_data3, caption="Left", use_container_width=True)
+    st.image(image, caption="Front", use_container_width=True)
+    st.image(image2, caption="Right", use_container_width=True)
+    st.image(image3, caption="Left", use_container_width=True)
+    st.image(image4, caption="Back", use_container_width=True)
 
 
 # import streamlit as st
