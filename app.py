@@ -70,22 +70,57 @@
 #             st.image(img, caption=image_file.name, use_column_width=True)
 # st.success("Captured 3 images successfully!")
 # display_images_in_grid()
+# import streamlit as st
+# import cv2
+# import numpy as np
+
+# st.title("Webcam Capture with OpenCV")
+
+# # Use Streamlit's built-in camera input
+# image_data = st.camera_input("Capture an image")
+
+# if image_data:
+#     # Convert the image to a numpy array
+#     image = np.array(bytearray(image_data.read()), dtype=np.uint8)
+#     image = cv2.imdecode(image, 1)
+
+#     # Process the image with OpenCV (example: convert to grayscale)
+#     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+#     # Display the processed image
+#     st.image(gray_image, caption="Processed Image", use_column_width=True)
+
+
 import streamlit as st
 import cv2
+from PIL import Image
 import numpy as np
 
-st.title("Webcam Capture with OpenCV")
+st.title("Multi-Camera Capture with OpenCV")
 
-# Use Streamlit's built-in camera input
-image_data = st.camera_input("Capture an image")
+# Camera indices (0, 1, 2 are common default indices for connected cameras)
+camera_indices = [0, 1, 2]
 
-if image_data:
-    # Convert the image to a numpy array
-    image = np.array(bytearray(image_data.read()), dtype=np.uint8)
-    image = cv2.imdecode(image, 1)
+# Function to capture frames from cameras
+def get_camera_frame(camera_index):
+    cap = cv2.VideoCapture(camera_index)
+    ret, frame = cap.read()
+    cap.release()
+    if ret:
+        return frame
+    else:
+        return None
 
-    # Process the image with OpenCV (example: convert to grayscale)
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    # Display the processed image
-    st.image(gray_image, caption="Processed Image", use_column_width=True)
+# Display each camera's feed
+for idx, cam_index in enumerate(camera_indices):
+    st.header(f"Camera {idx + 1}")
+    frame = get_camera_frame(cam_index)
+    
+    if frame is not None:
+        # Example: Convert frame to grayscale
+        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        
+        # Convert to Image format for Streamlit
+        st.image(gray_frame, caption=f"Processed Camera {idx + 1}", use_column_width=True, channels="GRAY")
+    else:
+        st.warning(f"Camera {idx + 1} is not available or could not capture a frame.")
