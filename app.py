@@ -74,15 +74,18 @@
 import streamlit as st
 import cv2
 import numpy as np
-
+import time
 st.title("Real-Time Capture")
 
 # Use Streamlit's built-in camera input
 # 3 columns
 col1, col2, col3 = st.columns(3)
 image_data = st.camera_input("Right")
+time.sleep(0.5)
 image_data2 =  st.camera_input("Left")
+time.sleep(0.5)
 image_data3 =  st.camera_input("Front")
+time.sleep(0.5)
 image_data4 =  st.camera_input("Back")
 
 if image_data and image_data2 and image_data3:
