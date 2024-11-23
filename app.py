@@ -44,11 +44,7 @@ while run:
         cv2.imwrite("captured_images/camera1_image.jpg", frame1)
         cv2.imwrite("captured_images/camera2_image.jpg", frame2)
         cv2.imwrite("captured_images/camera3_image.jpg", frame3)
-        break
-    # wait
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-    
+        break    
 else:
     camera1.release()
     camera2.release()
